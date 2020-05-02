@@ -1,18 +1,18 @@
-import React from 'react';
-import Layout from './Components/Layout/Layout'
-import './App.css';
-import BurgerBuilder from './Containers/BurgerBuilder'
+import React, { Component } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-    <h1>testing react</h1>
-    <Layout>
-        <BurgerBuilder />  
-        {/* <h3>passing value from app to layout</h3> */}
-    </Layout>
-    </div>
-  );
+import Layout from './components/Layout/Layout';
+import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
+
+class App extends Component {
+  render () {
+    return (
+      <div>
+        <Layout>
+          <BurgerBuilder />
+        </Layout>
+      </div>
+    );
+  }
 }
 
 export default App;
