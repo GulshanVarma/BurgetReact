@@ -20,8 +20,23 @@ class BurgerBuilder extends Component {
             meat: 0
         },
         totalPrice: 4,
-        purchasable: false
+        purchasable: false,
+
     }
+
+
+    updatePurchaseState (ingredients) {
+        // update the state with new add/removed ing
+        const sum = Object.keys( ingredients )
+            .map( igKey => {
+                return ingredients[igKey];
+            } )
+            .reduce( ( sum, el ) => {
+                return sum + el;
+            }, 0 );  
+        this.setState( { purchasable: sum > 0 } );
+    }
+
 
     addIngredientHandler = ( type ) => {
         const oldCount = this.state.ingredients[type];
@@ -34,11 +49,12 @@ class BurgerBuilder extends Component {
         const oldPrice = this.state.totalPrice;
         const newPrice = oldPrice + priceAddition;
         this.setState( { totalPrice: newPrice, ingredients: updatedIngredients } );
+        this.updatePurchaseState(updatedIngredients);
     }
 
     removeIngredientHandler = ( type ) => {
         const oldCount = this.state.ingredients[type];
-        if ( oldCount <= 0 ) {
+        if ( oldCount <= 0 ) {  //if not, then error
             return;
         }
         const updatedCount = oldCount - 1;
@@ -50,6 +66,20 @@ class BurgerBuilder extends Component {
         const oldPrice = this.state.totalPrice;
         const newPrice = oldPrice - priceDeduction;
         this.setState( { totalPrice: newPrice, ingredients: updatedIngredients } );
+        this.updatePurchaseState(updatedIngredients);
+    }
+
+    // reset values
+    reset = () =>{
+        console.log('in reset');
+        
+        const newIngr = {
+            salad: 0,
+            bacon: 0,
+            cheese: 0,
+            meat: 0
+        }
+        this.setState({ingredients:newIngr,totalPrice: 4,purchasable: false})
     }
 
     render () {
@@ -68,7 +98,9 @@ class BurgerBuilder extends Component {
                     ingredientRemoved={this.removeIngredientHandler}
                     disabled={disabledInfo}
                     purchasable={this.state.purchasable}
-                    price={this.state.totalPrice} />
+                    price={this.state.totalPrice} 
+                    reset = {this.reset}
+                    />
             </Aux>
         );
     }

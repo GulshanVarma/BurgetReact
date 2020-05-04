@@ -17,12 +17,19 @@ const buildControls = (props) => (
                 key={ctrl.label} 
                 label={ctrl.label}
                 added={() => props.ingredientAdded(ctrl.type)}
-                removed={() => props.ingredientRemoved(ctrl.type)}
-                disabled={props.disabled[ctrl.type]} />
+                removed={() => props.ingredientRemoved(ctrl.type)} 
+                disabled={props.disabled[ctrl.type]} 
+                // disable each bc acc to disabled array
+            />
         ))}
+        <p><strong>Total price: {props.price.toFixed(2)}$</strong></p>
         <button 
             className={classes.OrderButton}
             disabled={!props.purchasable}>ORDER NOW</button>
+            <br />
+        <button 
+        className={[classes.OrderButton,classes.Reset].join(' ')}
+        onClick={props.reset}>RESET</button>    
     </div>
 );
 

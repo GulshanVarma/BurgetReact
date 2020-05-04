@@ -6,7 +6,6 @@ import BurgerBuilder from './Containers/BurgerBuilder'
 function App() {
   return (
     <div className="App">
-    <h1>testing react</h1>
     <Layout>
         <BurgerBuilder />  
         {/* <h3>passing value from app to layout</h3> */}
